@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class KeicyFCMForMobile {
-  static KeicyFCMForMobile _instance = KeicyFCMForMobile();
+  static final KeicyFCMForMobile _instance = KeicyFCMForMobile();
   static KeicyFCMForMobile get instance => _instance;
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -57,10 +57,6 @@ class KeicyFCMForMobile {
   }
 
   Future<Map<String, dynamic>> sendMessage(String body, String title, String partnerToken) async {
-    var result = await _firebaseMessaging.requestNotificationPermissions(
-      const IosNotificationSettings(sound: true, badge: true, alert: true),
-    );
-
     http.Response response = await http.post(
       'https://fcm.googleapis.com/fcm/send',
       headers: <String, String>{
